@@ -1,0 +1,162 @@
+CheckMyWeb 사용권 계약 (프리웨어)
+Copyright (c) 2026 WooklyDev. All rights reserved.
+
+CheckMyWeb(이하 "소프트웨어")은 WooklyDev(이하 "개발자")가 무료로 제공하는 웹사이트 보안 자가 점검
+프로그램입니다. 소프트웨어를 사용하면 아래 조건에 동의한 것으로 봅니다. 동의하지 않으면 소프트웨어를
+사용하지 말고 삭제하세요.
+
+1. 무료 사용
+   누구나 개인, 업무, 교육 등 어떤 용도로든 비용 없이 소프트웨어를 사용할 수 있습니다.
+
+2. 점검 대상과 사용자의 책임
+   - 소프트웨어는 사용자 본인이 소유하거나 소유자에게서 점검 권한을 받은 웹사이트·도메인·서버에만
+     사용해야 합니다. 소유 확인 기능은 도메인을 관리하고 있는지 확인할 뿐, 점검 권한을 증명하거나
+     부여하지 않습니다.
+   - 점검 요청은 사용자의 컴퓨터에서 사용자의 판단으로 보내집니다. 점검 대상의 선택과 권한 확인,
+     관련 법령(정보통신망 이용촉진 및 정보보호 등에 관한 법률 등)과 호스팅·CDN 등 서비스 약관의
+     준수는 사용자의 책임입니다.
+   - 권한 없는 점검이나 이 계약을 위반한 사용으로 생긴 책임은 사용자에게 있습니다. 이로 인해 개발자가
+     제3자로부터 청구를 받거나 손해를 입으면 사용자는 그 손해를 배상해야 합니다.
+
+3. 금지 사항
+   다음 행위는 허용되지 않습니다.
+   - 권한 없는 대상을 점검하거나, 다른 사람의 시스템을 공격·침입하거나 그 준비에 소프트웨어를 쓰는 것
+   - 소유 확인 등 소프트웨어의 안전 장치를 우회하거나 무력화하는 것, 그 목적으로 소프트웨어를
+     수정하는 것
+   - 법령에 위반되거나 다른 사람의 권리를 침해하는 목적으로 소프트웨어를 쓰는 것
+
+4. 재배포
+   배포 패키지를 수정하지 않고 이 문서를 포함한 그대로라면 무료로 다른 사람에게 나눠 주거나
+   웹사이트에 올릴 수 있습니다. 다음은 허용되지 않습니다.
+   - 소프트웨어를 판매하거나, 대가를 받고 배포하거나, 유료 상품·서비스에 포함하는 것
+   - 수정한 소프트웨어를 배포하거나, 다른 이름이나 다른 개발자 명의로 배포하는 것
+
+5. 저작권과 상표
+   소프트웨어의 저작권과 모든 권리는 개발자에게 있습니다. 이 계약은 위에서 허락한 권한 외에
+   어떤 권리도 주지 않습니다. 소프트웨어와 문서에 나오는 다른 회사의 제품명과 상표는 각 소유자의
+   것이며 식별 목적으로만 사용합니다.
+
+6. 점검 결과의 한계
+   - 소프트웨어는 공개된 응답과 DNS 정보를 바탕으로 자동 점검한 결과를 보여 줍니다. 결과에는 실제와
+     다른 판정이 있을 수 있으며, 결과에 나타나지 않은 문제가 없다는 것을 보장하지 않습니다.
+   - 점수·등급과 조치 예시는 참고 정보이며, 전문 보안 진단이나 모의 해킹, 법령·인증 기준 충족
+     여부의 판단을 대신하지 않습니다.
+   - 조치 예시는 일반적인 설정 예입니다. 적용하기 전에 설정을 백업하고 사용자의 환경에서
+     검토·시험해야 하며, 적용 여부와 그 결과는 사용자의 책임입니다.
+
+7. 외부 서비스와 정보 처리
+   소프트웨어는 DNS 정보를 조회하려고 Cloudflare와 Google의 공개 DNS-over-HTTPS 서비스에 점검하는
+   도메인 이름을 보내며, 이 서비스들에는 각 사업자의 정책이 적용됩니다. 소프트웨어는 점검 결과나
+   사용 정보를 개발자에게 보내지 않으며, 보고서는 사용자의 컴퓨터에만 저장됩니다.
+
+8. 보증 없음
+   소프트웨어는 "있는 그대로" 제공되며, 상품성, 특정 목적에의 적합성, 결과의 정확성과 완전성,
+   권리 비침해를 포함하여 명시적이든 묵시적이든 어떠한 보증도 하지 않습니다. 개발자는 업데이트,
+   기술 지원, 계속 배포를 약속하지 않습니다.
+
+9. 책임의 제한
+   관련 법령이 허용하는 최대한의 범위에서, 개발자는 소프트웨어의 사용 또는 사용 불능, 점검 결과,
+   조치 예시의 적용으로 생긴 어떠한 손해(서비스 중단, 데이터 손실, 영업 손실, 제3자의 청구를
+   포함하며 직접·간접·부수적·결과적 손해를 가리지 않습니다)에 대해서도 책임지지 않습니다. 다만
+   개발자의 고의 또는 중대한 과실로 생긴 손해는 그러하지 않습니다.
+
+10. 계약의 종료
+    사용자가 이 계약을 위반하면 사용 권한은 별도 통지 없이 종료되며, 사용자는 소프트웨어와 그
+    사본을 모두 삭제해야 합니다. 제2조의 배상 책임, 제6조부터 제9조까지, 제11조는 계약이 끝난
+    뒤에도 유효합니다.
+
+11. 준거법과 분쟁 해결
+    이 계약은 대한민국 법률에 따라 해석됩니다. 이 계약과 관련한 분쟁은 민사소송법에 따른 관할
+    법원에서 해결합니다. 이 계약의 일부 조항이 효력을 잃더라도 나머지 조항은 계속 유효합니다.
+    한국어본과 영어본의 내용이 다르면 한국어본을 따릅니다.
+
+문의: contact@wookly.dev
+
+----------------------------------------------------------------------
+
+CheckMyWeb License Agreement (Freeware)
+Copyright (c) 2026 WooklyDev. All rights reserved.
+
+CheckMyWeb (the "Software") is a free website security self-check program provided by WooklyDev
+(the "Developer"). By using the Software you agree to the terms below. If you do not agree, do
+not use the Software and delete it.
+
+1. Free use
+   Anyone may use the Software free of charge for any purpose, including personal, business and
+   educational use.
+
+2. Scan targets and your responsibility
+   - Use the Software only on websites, domains and servers that you own or that their owner has
+     authorized you to test. The ownership check only confirms that you control a domain; it does
+     not prove or grant authorization to test.
+   - Scan requests are sent from your computer at your own discretion. You are responsible for
+     choosing targets, confirming authorization, and complying with applicable laws (such as the
+     Korean Act on Promotion of Information and Communications Network Utilization and Information
+     Protection) and the terms of hosting, CDN and other services.
+   - You are responsible for scans without authorization and for any use that violates this
+     agreement. If the Developer receives a third-party claim or suffers damages as a result, you
+     shall compensate the Developer for those damages.
+
+3. Prohibited uses
+   You may not:
+   - scan targets without authorization, or use the Software to attack or intrude into other
+     people's systems or to prepare such acts;
+   - bypass or disable the Software's safeguards, such as the ownership check, or modify the
+     Software for that purpose;
+   - use the Software for any purpose that violates the law or infringes the rights of others.
+
+4. Redistribution
+   You may give the distribution package to others or post it on a website free of charge,
+   provided it is unmodified and includes this document. You may not:
+   - sell the Software, distribute it for a fee, or include it in a paid product or service;
+   - distribute a modified version, or distribute the Software under another name or
+     another developer's name.
+
+5. Copyright and trademarks
+   The Software is copyrighted by the Developer, who retains all rights. This agreement grants no
+   rights other than those stated above. Other companies' product names and trademarks that
+   appear in the Software and its documents belong to their owners and are used only for
+   identification.
+
+6. Limits of scan results
+   - The Software reports the results of automated checks based on public responses and DNS
+     information. Results may contain incorrect findings, and the Software does not guarantee
+     that problems it does not report are absent.
+   - Scores, grades and fix examples are for reference only. They do not replace a professional
+     security assessment, a penetration test, or a determination of compliance with laws or
+     certification standards.
+   - Fix examples are general configuration samples. Back up your configuration and review and
+     test changes in your own environment before applying them. Whether you apply them, and the
+     results, are your responsibility.
+
+7. External services and data
+   To look up DNS information, the Software sends the domain names being checked to the public
+   DNS-over-HTTPS services of Cloudflare and Google, whose own policies apply. The Software does
+   not send scan results or usage information to the Developer, and reports are stored only on
+   your computer.
+
+8. No warranty
+   The Software is provided "as is", without warranty of any kind, express or implied, including
+   merchantability, fitness for a particular purpose, accuracy or completeness of results, and
+   non-infringement. The Developer makes no commitment to provide updates, support or continued
+   distribution.
+
+9. Limitation of liability
+   To the maximum extent permitted by applicable law, the Developer is not liable for any damages
+   arising from the use of, or inability to use, the Software, its scan results, or the
+   application of its fix examples, including service interruption, data loss, lost business and
+   third-party claims, whether direct, indirect, incidental or consequential. This does not apply
+   to damages caused by the Developer's intentional misconduct or gross negligence.
+
+10. Termination
+    If you violate this agreement, your right to use the Software ends without notice, and you
+    must delete the Software and all copies. Your compensation obligation under section 2,
+    sections 6 through 9, and section 11 survive termination.
+
+11. Governing law and disputes
+    This agreement is governed by the laws of the Republic of Korea. Disputes relating to this
+    agreement shall be resolved by the court having jurisdiction under the Korean Civil Procedure
+    Act. If any provision of this agreement is held invalid, the remaining provisions stay in
+    effect. If the Korean and English versions differ, the Korean version prevails.
+
+Contact: contact@wookly.dev

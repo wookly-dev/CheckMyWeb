@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CheckMyWeb 사용 설명서</title>
+<style>
+:root { color-scheme: light dark; --bg: #f6f6f7; --fg: #1f1f22; --muted: #62626a; --line: #dcdce1;
+  --panel: #ffffff; --code: #ebebef; --head: #eeeef1; --accent: #2563d6; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #1b1b1d; --fg: #e6e6e9; --muted: #a0a0a8; --line: #38383d; --panel: #242427;
+    --code: #2d2d31; --head: #2a2a2e; --accent: #8ab4ff; }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg);
+  font: 15px/1.7 "Segoe UI", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif; }
+main { max-width: 800px; margin: 0 auto; padding: 32px 16px 64px; }
+h1 { font-size: 28px; line-height: 1.3; margin: 0 0 12px; }
+h2 { font-size: 20px; margin: 44px 0 12px; padding-top: 16px; border-top: 1px solid var(--line); }
+h3 { font-size: 16px; margin: 28px 0 8px; }
+p, ul, ol { margin: 10px 0; }
+ul, ol { padding-left: 24px; }
+li { margin: 4px 0; }
+li > ul, li > ol { margin: 4px 0; }
+a { color: var(--accent); }
+code { font-family: "Cascadia Mono", Consolas, monospace; font-size: 0.88em; background: var(--code);
+  padding: 1px 5px; border-radius: 4px; white-space: nowrap; }
+p code, li code { white-space: normal; overflow-wrap: anywhere; }
+pre { margin: 10px 0; padding: 10px 14px; background: var(--code); border-radius: 8px; overflow-x: auto;
+  font-size: 14px; line-height: 1.55; }
+pre code { padding: 0; background: none; white-space: pre; }
+blockquote { margin: 16px 0; padding: 4px 16px; background: var(--panel); border-left: 3px solid var(--accent);
+  border-radius: 0 8px 8px 0; }
+.table { overflow-x: auto; margin: 12px 0; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { border: 1px solid var(--line); padding: 6px 10px; text-align: left; vertical-align: top; }
+th { background: var(--head); font-weight: 600; white-space: nowrap; }
+figure { margin: 16px 0; }
+figure img { display: block; max-width: 100%; height: auto; border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25); }
+figcaption { margin-top: 8px; color: var(--muted); font-size: 13px; }
+nav { margin: 20px 0; padding: 12px 18px; background: var(--panel); border: 1px solid var(--line);
+  border-radius: 10px; }
+nav strong { display: block; margin-bottom: 4px; }
+nav ol { margin: 0; padding-left: 20px; columns: 2; column-gap: 32px; }
+@media (max-width: 560px) { nav ol { columns: 1; } }
+</style>
+</head>
+<body>
+<main>
+<h1>CheckMyWeb 사용 설명서</h1>
+<p>CheckMyWeb(체크마이웹)은 내 웹사이트의 HTTPS, 보안 헤더, 노출 파일, 메일 도메인 설정을 외부에서 점검하고, 감지한 서버 종류에 맞는 조치 방법을 알려 주는 명령줄 프로그램입니다.</p>
+<div class="table"><table><thead><tr><th>항목</th><th>내용</th></tr></thead><tbody>
+<tr><td>버전</td><td>@VERSION@</td></tr>
+<tr><td>개발자</td><td>WooklyDev</td></tr>
+<tr><td>연락처</td><td><a href="mailto:contact@wookly.dev">contact@wookly.dev</a></td></tr>
+<tr><td>홈페이지</td><td><a href="https://wookly.dev/">wookly.dev</a></td></tr>
+<tr><td>라이선스</td><td>무료 소프트웨어(프리웨어)</td></tr>
+<tr><td>실행 환경</td><td>Python 3.11 이상 (현재 Windows에서 검증)</td></tr>
+</tbody></table></div>
+<blockquote><p><strong>본인 소유이거나 소유자에게서 점검 권한을 받은 사이트에만 사용하세요.</strong> 권한 없는 점검은 정보통신망법 등 관련 법령에 위반될 수 있으며, 그 책임은 사용자에게 있습니다. 민감 파일 노출 점검과 포트 점검은 도메인 소유를 확인한 경우에만 실행됩니다.</p></blockquote>
+<nav><strong>목차</strong><ol>
+<li><a href="#s1">시작하기</a></li>
+<li><a href="#s2">첫 점검</a></li>
+<li><a href="#s3">보고서 읽기</a></li>
+<li><a href="#s4">소유 확인</a></li>
+<li><a href="#s5">여러 사이트 점검</a></li>
+<li><a href="#s6">포트·경로·사내 인증서</a></li>
+<li><a href="#s7">점검 항목</a></li>
+<li><a href="#s8">전체 옵션</a></li>
+<li><a href="#s9">정기 점검과 종료 코드</a></li>
+<li><a href="#s10">자주 묻는 질문</a></li>
+<li><a href="#s11">사용 시 유의사항</a></li>
+<li><a href="#s12">개발자 정보</a></li>
+</ol></nav>
+
+<h2 id="s1">1. 시작하기</h2>
+<p>CheckMyWeb은 Python 3.11 이상에서 동작하며 추가 패키지가 필요 없습니다. 웹사이트 서버에는 아무것도 설치하지 않습니다.</p>
+<ol>
+<li><a href="https://www.python.org/downloads/">python.org</a>에서 Python을 내려받아 설치합니다. Windows 설치 화면에서는 <strong>py launcher</strong>와 <strong>Add python.exe to PATH</strong>를 함께 선택하면 편리합니다.</li>
+<li>명령 프롬프트에서 <code>py --version</code>을 실행해 <code>Python 3.11</code> 이상이 표시되는지 확인합니다.</li>
+<li>배포 ZIP(<code>CheckMyWeb-@VERSION@.zip</code>)을 원하는 폴더에 풉니다. 설치 과정은 없습니다.</li>
+</ol>
+<div class="table"><table><thead><tr><th>파일</th><th>설명</th></tr></thead><tbody>
+<tr><td><code>checkmyweb.pyz</code></td><td>프로그램 본체 (Python으로 실행)</td></tr>
+<tr><td><code>checkmyweb.cmd</code></td><td>Windows 실행 도우미 (py 또는 python으로 본체 실행)</td></tr>
+<tr><td><code>README.txt</code></td><td>간단한 안내</td></tr>
+<tr><td><code>manual.html</code></td><td>이 사용 설명서</td></tr>
+<tr><td><code>LICENSE.txt</code></td><td>사용권 계약</td></tr>
+</tbody></table></div>
+
+<h2 id="s2">2. 첫 점검</h2>
+<ol>
+<li>압축을 푼 폴더를 탐색기로 열고, 주소창에 <code>cmd</code>를 입력한 뒤 Enter를 눌러 명령 프롬프트를 엽니다.</li>
+<li>점검할 도메인을 붙여 실행합니다.
+<pre><code>checkmyweb.cmd example.com</code></pre></li>
+<li>점검이 끝나면 화면에 결과가 요약되고, <code>reports</code> 폴더에 HTML·JSON 보고서가 저장됩니다.</li>
+</ol>
+<p>PowerShell에서는 <code>.\checkmyweb.cmd example.com</code>으로 실행합니다. macOS·Linux에서는 <code>python3 checkmyweb.pyz example.com</code>으로 실행하며, 이 환경은 아직 직접 검증하지 않았습니다.</p>
+<figure><img src="@IMAGE:console.png@" alt="명령 프롬프트 점검 결과" width="1200" height="880"><figcaption>명령 프롬프트 점검 결과 (예시 사이트)</figcaption></figure>
+
+<h2 id="s3">3. 보고서 읽기</h2>
+<p><code>reports</code> 폴더의 HTML 파일을 브라우저로 열면 등급, 위험도별 개수, 서버 환경, 우선 조치 항목이 맨 위에 나오고 그 아래에 점검 영역별 결과가 이어집니다. 위험도 버튼을 누르면 원하는 위험도의 항목만 볼 수 있습니다.</p>
+<figure><img src="@IMAGE:report-overview.png@" alt="점검 보고서와 우선 조치 항목" width="1200" height="820"><figcaption>점검 보고서와 우선 조치 항목 (예시 사이트)</figcaption></figure>
+<div class="table"><table><thead><tr><th>위험도</th><th>의미</th><th>감점</th></tr></thead><tbody>
+<tr><td>심각</td><td>바로 악용될 수 있는 노출 (예: <code>.git</code>·<code>.env</code> 공개, 만료된 인증서)</td><td>30</td></tr>
+<tr><td>높음</td><td>중요한 방어 장치가 없음 (예: HSTS 없음, HTTPS로 전환되지 않는 로그인 페이지)</td><td>15</td></tr>
+<tr><td>보통</td><td>권장 방어 장치가 없음 (예: CSP 없음, 세션 쿠키 속성 미흡)</td><td>5</td></tr>
+<tr><td>낮음</td><td>하드닝 권장 사항 (예: 버전 정보 노출, TRACE 허용)</td><td>1</td></tr>
+<tr><td>정보</td><td>참고 사항</td><td>0</td></tr>
+<tr><td>양호</td><td>잘 설정된 항목</td><td>0</td></tr>
+</tbody></table></div>
+<p>100점에서 감점하며 한 점검 영역의 감점은 최대 40점입니다. 90점 이상 A, 80점 이상 B, 65점 이상 C, 50점 이상 D, 그 아래는 F이고, 심각 항목이 있으면 최고 D입니다. 점수는 우선순위를 정하기 위한 참고치이며, 발견되지 않은 문제가 없다는 뜻은 아닙니다.</p>
+<h3>3.1 조치 방법</h3>
+<p>각 항목의 <strong>조치 방법</strong>에는 감지된 서버의 설정 예시가 나옵니다. 서버를 알 수 없으면 Apache와 nginx 예시를 함께 보여 주고, CDN 뒤의 사이트는 CDN 콘솔에서 바꿀 설정을 먼저 안내합니다.</p>
+<figure><img src="@IMAGE:report-fixes.png@" alt="서버에 맞춘 조치 방법" width="1200" height="820"><figcaption>서버에 맞춘 조치 방법 (예시 사이트)</figcaption></figure>
+<p>조치 예시는 일반적인 설정 예입니다. 아래 순서로 적용하세요.</p>
+<ol>
+<li>바꾸기 전에 현재 설정 파일을 백업합니다.</li>
+<li>설정을 바꾼 뒤 웹 서버 설정 검사(<code>apachectl -t</code>, <code>nginx -t</code>)를 거쳐 재시작합니다.</li>
+<li>사이트가 정상으로 열리는지 확인하고 다시 점검합니다.</li>
+</ol>
+<p>HSTS와 CSP는 잘못 설정하면 사이트 접속이나 기능에 영향을 줄 수 있습니다. HSTS는 짧은 <code>max-age</code>로, CSP는 <code>Content-Security-Policy-Report-Only</code> 헤더로 먼저 시험한 뒤 적용하세요.</p>
+
+<h2 id="s4">4. 소유 확인</h2>
+<p><code>.env</code>, <code>.git</code>, 백업 파일, 관리자 페이지 같은 <strong>민감 파일 노출 점검</strong>과 <strong>포트 점검</strong>은 사이트의 약점을 그대로 드러내므로, 도메인 소유를 확인한 뒤에만 실행합니다. 확인 전에는 두 점검이 "건너뜀"으로 표시되고 나머지 점검은 그대로 진행됩니다.</p>
+<ol>
+<li>소유 확인 안내를 엽니다. 이 컴퓨터 전용 토큰과 두 가지 확인 방법이 표시됩니다.
+<pre><code>checkmyweb.cmd verify example.com</code></pre></li>
+<li>둘 중 한 가지 방법으로 토큰을 등록합니다.
+<ul>
+<li><strong>DNS TXT 레코드 (권장)</strong>: 도메인 관리 화면에서 이름 <code>_checkmyweb.example.com</code>, 값 <code>checkmyweb-verify=…</code>인 TXT 레코드를 추가합니다. 등록 도메인과 모든 서브도메인에 적용됩니다.</li>
+<li><strong>확인 파일</strong>: <code>https://example.com/.well-known/checkmyweb-verify.txt</code>에 토큰을 담은 파일을 올립니다. 해당 주소(호스트·포트)에만 적용되며, DNS가 없는 사내 서버에도 쓸 수 있습니다.</li>
+</ul></li>
+<li><code>verify</code>를 다시 실행해 "확인됨"이 나오면 점검을 다시 합니다.</li>
+</ol>
+<p>DNS 변경은 반영까지 몇 분에서 몇 시간이 걸릴 수 있습니다. 토큰은 컴퓨터마다 다르므로 여러 컴퓨터에서 점검한다면 각 컴퓨터의 토큰을 TXT 레코드로 모두 추가하세요(같은 이름에 여러 값을 둘 수 있습니다). 내 컴퓨터(127.0.0.1 등)에서 실행 중인 개발 서버는 확인 없이 점검합니다.</p>
+<p>소유 확인은 도메인을 관리하고 있다는 것을 보여 줄 뿐, 서버를 점검할 권한까지 증명하지는 않습니다. 서버를 호스팅·클라우드 사업자가 운영한다면 포트 점검 전에 해당 사업자의 이용 정책을 확인하세요.</p>
+
+<h2 id="s5">5. 여러 사이트 점검</h2>
+<p>대상을 여러 개 적거나 목록 파일을 지정하면 차례대로 점검하고 요약 보고서를 만듭니다. 한 번에 최대 50개까지 점검할 수 있습니다.</p>
+<pre><code>checkmyweb.cmd example.com shop.example.com
+checkmyweb.cmd -f sites.txt</code></pre>
+<p>목록 파일은 한 줄에 대상 하나를 적고, <code>#</code> 뒤는 주석으로 무시합니다.</p>
+<pre><code># 운영 중인 사이트
+example.com
+shop.example.com
+https://admin.example.com:8443/   # 관리 페이지</code></pre>
+<p>결과는 <code>reports\batch-날짜-시각</code> 폴더에 대상별 HTML·JSON과 요약 페이지 <code>index.html</code>, <code>summary.json</code>으로 저장됩니다. 화면에는 대상별 등급과 위험도 개수 표가 나오며, <code>--details</code>를 붙이면 항목별 결과도 모두 출력합니다.</p>
+<figure><img src="@IMAGE:batch-summary.png@" alt="여러 사이트 일괄 점검 요약" width="1200" height="460"><figcaption>여러 사이트 일괄 점검 요약 (예시 사이트)</figcaption></figure>
+
+<h2 id="s6">6. 포트·경로·사내 인증서</h2>
+<ul>
+<li><strong>포트와 경로</strong>: <code>https://example.com:8443/app/</code>처럼 적으면 해당 포트의 TLS를 점검하고, 노출 파일은 <code>/app/</code> 아래를 기준으로 찾습니다. 서버 전체에 해당하는 항목(security.txt, 서버 상태 페이지 등)은 사이트 루트에서 확인합니다.</li>
+<li><strong>HTTP 리다이렉트 포트</strong>: HTTPS를 비표준 포트로 운영하면 짝이 되는 HTTP 포트를 알 수 없으므로, <code>--http-port 8080</code>처럼 지정해야 리다이렉트를 점검합니다.</li>
+<li><strong>사내 CA 인증서</strong>: 사내 인증기관이 발급한 인증서를 쓰는 서버는 <code>--ca-file 사내CA.pem</code>으로 CA 인증서를 지정하면 인증서 오류 없이 점검합니다.</li>
+<li><strong>IP 주소·사내 도메인</strong>: <code>https://10.0.0.5/</code>나 <code>intranet.local</code>도 점검할 수 있으며, 공인 DNS가 없으므로 DNS·이메일 점검은 건너뜁니다.</li>
+</ul>
+
+<h2 id="s7">7. 점검 항목</h2>
+<div class="table"><table><thead><tr><th>이름</th><th>내용</th></tr></thead><tbody>
+<tr><td><code>tls</code></td><td>인증서 유효성·체인·만료일·키 길이·서명 알고리즘, TLS 1.0/1.1/1.3 지원, 취약 암호, HTTP/2</td></tr>
+<tr><td><code>redirects</code></td><td>HTTP→HTTPS 리다이렉트, 평문 로그인 페이지, www·apex 대표 주소 통일</td></tr>
+<tr><td><code>headers</code></td><td>HSTS, CSP 분석, 클릭재킹 방어, nosniff, Referrer-Policy, Permissions-Policy, COOP·CORP</td></tr>
+<tr><td><code>cookies</code></td><td>Secure·HttpOnly·SameSite, <code>__Host-</code> 접두사</td></tr>
+<tr><td><code>disclosure</code></td><td>서버·프레임워크 버전 노출, generator 태그, 오류 페이지의 서버 서명·스택 트레이스</td></tr>
+<tr><td><code>content</code></td><td>혼합 콘텐츠, 외부 리소스 SRI, 평문 폼, 취약한 jQuery·Bootstrap·AngularJS·Moment.js, security.txt, robots.txt</td></tr>
+<tr><td><code>cors</code></td><td>임의·null·접미사 우회 Origin 반사와 자격증명 허용</td></tr>
+<tr><td><code>methods</code></td><td>OPTIONS가 알리는 위험 메서드, TRACE 활성화</td></tr>
+<tr><td><code>exposure</code></td><td>.git·.env·SVN·백업·DB 덤프·phpinfo·server-status·phpMyAdmin·디렉터리 목록 등 40여 개 경로 (소유 확인 필요)</td></tr>
+<tr><td><code>dns</code></td><td>SPF(조회 한도 포함), DMARC(상위 도메인 정책 상속), DKIM 키 길이, 메일 서버 PTR, MTA-STS, TLS-RPT, CAA, DNSSEC</td></tr>
+<tr><td><code>ports</code></td><td><code>--ports</code>로 켭니다. DB·원격 접속·관리 패널 등 26개 포트와 메일 포트의 STARTTLS·평문 인증 허용 여부 (소유 확인 필요)</td></tr>
+</tbody></table></div>
+
+<h2 id="s8">8. 전체 옵션</h2>
+<div class="table"><table><thead><tr><th>옵션</th><th>설명</th></tr></thead><tbody>
+<tr><td><code>-f 파일</code></td><td>목록 파일의 대상을 점검</td></tr>
+<tr><td><code>--only tls,headers</code></td><td>지정한 점검만 실행</td></tr>
+<tr><td><code>--skip exposure</code></td><td>지정한 점검 제외</td></tr>
+<tr><td><code>--ports</code></td><td>포트 점검 포함</td></tr>
+<tr><td><code>--http-port 포트</code></td><td>리다이렉트를 점검할 HTTP 포트</td></tr>
+<tr><td><code>--ca-file 파일</code></td><td>추가로 신뢰할 CA 인증서</td></tr>
+<tr><td><code>-o 폴더</code></td><td>보고서 저장 폴더 (기본 <code>reports</code>)</td></tr>
+<tr><td><code>--html 파일</code>, <code>--json 파일</code></td><td>보고서 파일 경로 지정 (대상이 하나일 때)</td></tr>
+<tr><td><code>--no-report</code></td><td>파일 보고서를 만들지 않음</td></tr>
+<tr><td><code>--details</code></td><td>여러 대상을 점검할 때도 항목별 결과 출력</td></tr>
+<tr><td><code>--min-severity low</code></td><td>화면에 표시할 최소 위험도</td></tr>
+<tr><td><code>--fail-on high</code></td><td>이 위험도 이상이 있으면 종료 코드 1 (<code>none</code>이면 항상 0)</td></tr>
+<tr><td><code>--timeout 10</code>, <code>--delay 0.15</code></td><td>요청 제한 시간과 요청 간격(초)</td></tr>
+<tr><td><code>--list-checks</code></td><td>점검 항목 목록</td></tr>
+<tr><td><code>--no-color</code></td><td>색상 없이 출력</td></tr>
+</tbody></table></div>
+
+<h2 id="s9">9. 정기 점검과 종료 코드</h2>
+<p>종료 코드는 <code>0</code>(기준 미만), <code>1</code>(<code>--fail-on</code> 이상의 항목 발견), <code>2</code>(대상의 주소를 찾을 수 없음)입니다. Windows 작업 스케줄러에 등록하면 인증서 만료나 설정 변경을 정기적으로 확인할 수 있습니다.</p>
+<pre><code>schtasks /Create /SC WEEKLY /D MON /ST 09:00 /TN CheckMyWeb ^
+  /TR "\"C:\Tools\CheckMyWeb\checkmyweb.cmd\" -f C:\Tools\CheckMyWeb\sites.txt -o C:\Tools\CheckMyWeb\reports"</code></pre>
+<p>Linux·macOS에서는 cron에 <code>python3 /opt/checkmyweb/checkmyweb.pyz -f sites.txt -o reports</code>를 등록합니다.</p>
+
+<h2 id="s10">10. 자주 묻는 질문</h2>
+<h3>점검 정보가 외부로 전송되나요?</h3>
+<p>점검 요청은 점검 대상 사이트(리다이렉트로 이어지는 주소 포함)로 보냅니다. DNS 레코드 조회에는 Cloudflare와 Google의 공개 DNS-over-HTTPS 서비스를 사용하므로, 점검하는 도메인 이름이 이 서비스에 전달됩니다. WooklyDev 서버로는 어떤 정보도 보내지 않으며, 보고서는 내 컴퓨터에만 저장됩니다.</p>
+<h3>점검 대상 서버에는 어떻게 기록되나요?</h3>
+<p>요청의 User-Agent에 <code>checkmyweb/버전</code>과 제품 페이지 주소가 표시되어 서버 로그에 남습니다. 요청 수가 적고 요청 사이에 간격을 두지만, 대상 서버의 보안 장비(웹 방화벽 등)가 경보를 내거나 내 IP를 차단할 수 있습니다. 다른 사람이 관리하는 서버라면 점검 전에 관리자에게 알리세요.</p>
+<h3>결과가 실제 설정과 다르게 나옵니다.</h3>
+<p>CheckMyWeb은 홈페이지와 정해진 경로만 확인하며 로그인 뒤의 페이지는 보지 않습니다. CDN이나 방화벽이 요청을 막으면 일부 항목을 확인하지 못할 수 있습니다. 보고서의 "근거"에 실제 응답이 적혀 있으니 함께 확인하세요.</p>
+<h3>Windows에서 "Python 3.11 or later is required"가 표시됩니다.</h3>
+<p>Python이 설치되지 않았거나 PATH에 없습니다. <a href="#s1">1장</a>을 참고해 설치한 뒤 명령 프롬프트를 새로 여세요.</p>
+<h3>보고서는 어떻게 관리해야 하나요?</h3>
+<p>보고서에는 사이트의 약점이 담겨 있습니다. 외부에 공유하지 말고, 조치를 마친 뒤에는 삭제하거나 안전한 곳에 보관하세요.</p>
+
+<h2 id="s11">11. 사용 시 유의사항</h2>
+<ul>
+<li><strong>점검 권한</strong>: 본인 소유이거나 소유자에게서 점검 권한을 받은 사이트·도메인·서버에만 사용하세요. 점검 대상의 선택과 권한 확인, 관련 법령(정보통신망 이용촉진 및 정보보호 등에 관한 법률 등)과 호스팅·CDN 서비스 약관의 준수는 사용자의 책임입니다.</li>
+<li><strong>점검 결과의 한계</strong>: 공개된 응답과 DNS 정보만으로 판단하므로 실제와 다른 판정이 있을 수 있습니다. 결과는 문제가 없음을 보증하지 않으며, 전문 보안 진단이나 모의 해킹, 법령·인증 기준 충족 여부의 판단을 대신하지 않습니다.</li>
+<li><strong>조치 예시의 적용</strong>: 조치 예시는 일반적인 설정 예입니다. 적용하기 전에 백업하고 내 환경에서 검토·시험하세요. 적용 여부와 그 결과는 사용자의 책임입니다.</li>
+<li><strong>외부 서비스</strong>: DNS 조회에 쓰는 Cloudflare와 Google의 DNS-over-HTTPS 서비스에는 각 사업자의 정책이 적용됩니다.</li>
+<li><strong>상표</strong>: 이 설명서와 프로그램에 나오는 제품명과 상표는 각 소유자의 것이며 식별 목적으로만 사용합니다. WooklyDev는 해당 회사와 제휴하거나 보증을 받지 않았습니다.</li>
+<li><strong>보증과 책임</strong>: 프로그램은 "있는 그대로" 제공되며 어떤 보증도 하지 않습니다. 관련 법령이 허용하는 범위에서 WooklyDev는 프로그램의 사용, 점검 결과, 조치 예시의 적용으로 생긴 손해에 책임지지 않습니다. 정확한 조건은 <code>LICENSE.txt</code>를 따릅니다.</li>
+</ul>
+
+<h2 id="s12">12. 개발자 정보</h2>
+<div class="table"><table><thead><tr><th>항목</th><th>내용</th></tr></thead><tbody>
+<tr><td>프로그램</td><td>CheckMyWeb @VERSION@</td></tr>
+<tr><td>개발자</td><td>WooklyDev</td></tr>
+<tr><td>연락처</td><td><a href="mailto:contact@wookly.dev">contact@wookly.dev</a></td></tr>
+<tr><td>홈페이지</td><td><a href="https://wookly.dev/">wookly.dev</a></td></tr>
+<tr><td>저작권</td><td>Copyright © 2026 WooklyDev. All rights reserved.</td></tr>
+<tr><td>라이선스</td><td>무료 소프트웨어(프리웨어). 배포 패키지의 <code>LICENSE.txt</code> 참고</td></tr>
+</tbody></table></div>
+<p>문의나 버그 제보는 위 연락처로 보내 주세요. 제품 소개와 최신 버전은 <a href="https://wookly.dev/products/checkmyweb/">제품 페이지</a>에서 확인할 수 있습니다.</p>
+<h3>라이선스 요약</h3>
+<ul>
+<li>개인, 업무, 교육 등 어떤 용도로든 무료로 쓸 수 있습니다.</li>
+<li>본인 소유이거나 점검 권한을 받은 사이트에만 사용해야 하며, 권한 없는 점검의 책임은 사용자에게 있습니다.</li>
+<li>배포 패키지를 수정하지 않은 그대로라면 무료로 다른 사람에게 나눠 주거나 웹사이트에 올릴 수 있습니다.</li>
+<li>판매하거나 대가를 받고 배포할 수 없고, 수정한 프로그램을 배포할 수 없습니다.</li>
+<li>프로그램은 "있는 그대로" 제공되며 어떤 보증도 하지 않습니다. 정확한 조건은 <code>LICENSE.txt</code>를 따릅니다.</li>
+</ul>
+</main>
+</body>
+</html>

@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "checkmyweb"
+version = "1.0.2"
+description = "비침투적 웹사이트 보안 자가 점검 도구 (TLS, 보안 헤더, 민감 파일 노출, DNS/이메일 보안 등)"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.scripts]
+checkmyweb = "checkmyweb.cli:main"
+
+[tool.setuptools]
+packages = ["checkmyweb", "checkmyweb.checks"]

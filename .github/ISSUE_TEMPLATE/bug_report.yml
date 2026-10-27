@@ -1,0 +1,36 @@
+name: 오류 제보 / Bug report
+description: 합성 예제로 재현 가능한 오류를 알려주세요.
+title: "[Bug] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        공개 이슈입니다. 실제 점검 보고서, 점검한 사이트의 주소·IP, 소유 확인 토큰, 서버 설정 파일, 인증정보, 개인·고객 자료를 첨부하지 마세요.
+        취약점은 저장소 Security의 비공개 제보 기능을 이용해 주세요.
+  - type: input
+    id: version
+    attributes:
+      label: CheckMyWeb 버전
+      description: "checkmyweb.cmd --version 의 결과"
+      placeholder: 1.0.2
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: 운영체제와 Python 버전
+      description: 개인 PC 이름이나 사용자 이름은 적지 마세요.
+      placeholder: Windows 11 x64, Python 3.12
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: 재현 순서
+      description: 실제 사이트 대신 example.com 같은 합성 값으로 설명해 주세요.
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: 예상 결과와 실제 결과
+    validations:
+      required: true
